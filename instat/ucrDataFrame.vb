@@ -44,9 +44,12 @@ Public Class ucrDataFrame
 
     Private Sub InitialiseControl()
         bUseCurrentFilter = True
-        SetRDefault("")
         lblDataFrame.AutoSize = True
         bUpdateRCodeFromControl = True
+        'TODO remove this once control updated
+        cboAvailableDataFrames.DropDownStyle = ComboBoxStyle.DropDownList
+        cboAvailableDataFrames.AutoCompleteMode = AutoCompleteMode.None
+        cboAvailableDataFrames.AutoCompleteSource = AutoCompleteSource.None
     End Sub
 
     Public Sub Reset()
@@ -91,7 +94,7 @@ Public Class ucrDataFrame
         End If
     End Sub
 
-    Protected Overrides Sub UpdateParameter(clsTempParam As RParameter)
+    Public Overrides Sub UpdateParameter(clsTempParam As RParameter)
         If clsTempParam IsNot Nothing Then
             If bParameterIsString Then
                 clsTempParam.SetArgumentValue(Chr(34) & cboAvailableDataFrames.Text & Chr(34))
@@ -169,12 +172,12 @@ Public Class ucrDataFrame
         Clipboard.SetText(cboAvailableDataFrames.SelectedText)
     End Sub
 
-    Public Overrides Sub UpdateControl(Optional bReset As Boolean = False)
+    Public Overrides Sub UpdateControl(Optional bReset As Boolean = False, Optional bCloneIfNeeded As Boolean = False)
         Dim clsTempDataParameter As RParameter
         Dim strDataFrameName As String = ""
         Dim clsMainParameter As RParameter
 
-        MyBase.UpdateControl()
+        MyBase.UpdateControl(bReset:=bReset, bCloneIfNeeded:=bCloneIfNeeded)
 
         clsMainParameter = GetParameter()
         If clsMainParameter IsNot Nothing Then
@@ -211,4 +214,14 @@ Public Class ucrDataFrame
     Public Overrides Function IsRDefault() As Boolean
         Return GetParameter() IsNot Nothing AndAlso objRDefault IsNot Nothing AndAlso objRDefault.Equals(cboAvailableDataFrames.Text)
     End Function
+
+    Private Sub ucrDataFrame_DataFrameChanged(sender As Object, e As EventArgs, strPrevDataFrame As String) Handles Me.DataFrameChanged
+        If frmMain.clsInstatOptions.bChangeDataFrame Then
+            frmMain.SetCurrentDataFrame(cboAvailableDataFrames.Text)
+        End If
+    End Sub
+
+    Public Sub SetLabelText(strText As String)
+        lblDataFrame.Text = strText
+    End Sub
 End Class

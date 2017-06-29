@@ -1,5 +1,5 @@
 # a link can contain multiple ways to link two data frames
-link <- R6Class("link",
+link <- R6::R6Class("link",
                        public = list(
                          initialize = function(from_data_frame = "", to_data_frame = "", type = "", link_columns = list()) {
                            self$from_data_frame <- from_data_frame
@@ -93,6 +93,25 @@ instat_object$set("public", "add_link", function(from_data_frame, to_data_frame,
 }
 )
 
+instat_object$set("public", "get_link_names", function(data_name, include_overall = TRUE, include, exclude, include_empty = FALSE, as_list = FALSE, excluded_items = c(), exclude_self_links = TRUE) {
+  if(exclude_self_links) {
+    out <- c()
+    i <- 1
+    for(link in private$.links) {
+      if(link$from_data_frame != link$to_data_frame) out <- c(out, names(private$.links)[i])
+      i <- i + 1
+    }
+  }
+  else out <- names(private$.links)
+  if(as_list) {
+    lst <- list()
+    lst[[overall_label]] <- out
+    return(lst)
+  }
+  else return(out)
+}
+)
+
 instat_object$set("public", "link_exists_from", function(curr_data_frame, link_pairs) {
   link_exists <- FALSE
   for(curr_link in private$.links) {
@@ -146,7 +165,7 @@ instat_object$set("public", "get_linked_to_definition", function(from_data_frame
     for(curr_link in private$.links) {
       for(curr_link_pairs in curr_link$link_columns) {
         if(length(link_pairs) == length(curr_link_pairs) && setequal(link_pairs, names(curr_link_pairs))) {
-          return(list(to_data_name, as.vector(curr_link_pairs)))
+          return(list(to_data_name, as.vector(curr_link_pairs[link_pairs])))
         }
       }
     }
@@ -270,5 +289,18 @@ instat_object$set("public", "get_link_between", function(from_data_frame, to_dat
     }
   }
   return(NULL)
+}
+)
+
+instat_object$set("public", "view_link", function(link_name) {
+  temp_link <- self$get_links(link_name)
+  out <- ""
+  if(length(temp_link) > 0) {
+    out <- cat(paste(
+                      paste("Link name:", link_name),
+                      paste("From data frame:", temp_link$from_data_frame),
+                      paste("To data frame:", temp_link$to_data_frame),
+                      paste("Link Columns:", paste(names(temp_link$link_columns), "=", temp_link$link_columns, collapse = ", ")), sep = "\n"))
+  }
 }
 )

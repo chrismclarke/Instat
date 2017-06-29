@@ -26,8 +26,8 @@ Module mdlCoreControl
             Return lstAllControls
         End If
 
-        If TypeOf ctrParent Is ucrCore Then
-            ucrTemp = DirectCast(ctrParent, ucrCore)
+        ucrTemp = TryCast(ctrParent, ucrCore)
+        If ucrTemp IsNot Nothing Then
             If ucrTemp.bIsActiveRControl Then
                 lstAllControls.Add(ctrParent)
             End If
@@ -36,14 +36,15 @@ Module mdlCoreControl
         For Each ctrChild As Control In ctrParent.Controls
             lstAllControls = GetAllCoreControls(lstAllControls, ctrChild)
         Next
-        lstAllControls.Sort(AddressOf CompareCoreControls)
+        'removed from here as potentially slow
+        'lstAllControls.Sort(AddressOf CompareCoreControls)
         Return lstAllControls
     End Function
 
     ' Defines ordering where selectors come before other controls
     ' Needed so that selectors are updated with RCode before receivers
-    Private Function CompareCoreControls(ucrFirst As ucrCore, ucrSecond As ucrCore)
-        If TryCast(ucrFirst, ucrDataFrame) IsNot Nothing Then
+    Private Function CompareCoreControls(ucrFirst As ucrCore, ucrSecond As ucrCore) As Integer
+        If TypeOf ucrFirst Is ucrDataFrame Then
             Return -1
         Else
             Return 1
@@ -55,6 +56,7 @@ Module mdlCoreControl
         Dim lstAllControls As New List(Of ucrCore)
 
         lstAllControls = GetAllCoreControls(lstAllControls, frmCurrentForm)
+        lstAllControls.Sort(AddressOf CompareCoreControls)
         For Each ucrTemp As ucrCore In lstAllControls
             ucrTemp.UpdateRCode()
         Next
@@ -64,6 +66,7 @@ Module mdlCoreControl
         Dim lstAllControls As New List(Of ucrCore)
 
         lstAllControls = GetAllCoreControls(lstAllControls, frmCurrentForm)
+        lstAllControls.Sort(AddressOf CompareCoreControls)
         SetRCode(lstAllControls, clsRCodeStructure, bReset)
     End Sub
 
@@ -79,11 +82,11 @@ Module mdlCoreControl
         Next
     End Sub
 
-    Public Function AllConditionsSatisfied(lstConditions As List(Of Condition), clsRCode As RCodeStructure, Optional clsParameter As RParameter = Nothing)
+    Public Function AllConditionsSatisfied(lstConditions As List(Of Condition), clsRCode As RCodeStructure, Optional clsParameter As RParameter = Nothing, Optional clsRSyntax As RSyntax = Nothing)
         Dim bTemp As Boolean = True
 
         For Each clsTempCond In lstConditions
-            If Not clsTempCond.IsSatisfied(clsRCode, clsParameter) Then
+            If Not clsTempCond.IsSatisfied(clsRCode, clsParameter, clsRSyntax) Then
                 bTemp = False
                 Exit For
             End If
@@ -91,6 +94,7 @@ Module mdlCoreControl
         Return bTemp
     End Function
 
+    'TODO This fails when items in the list contain "," as it splits values inside
     Public Function ExtractItemsFromRList(strTemp As String) As String()
         Dim lstVariables As String()
         If strTemp.StartsWith("c(") Then

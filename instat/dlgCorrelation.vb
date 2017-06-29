@@ -35,11 +35,17 @@ Public Class dlgCorrelation
         ucrReceiverSecondColumn.Selector = ucrSelectorCorrelation
         ucrReceiverMultipleColumns.Selector = ucrSelectorCorrelation
         ucrReceiverFirstColumn.SetDataType("numeric")
+        ucrReceiverFirstColumn.strSelectorHeading = "Numerics"
         ucrReceiverSecondColumn.SetDataType("numeric")
+        ucrReceiverSecondColumn.strSelectorHeading = "Numerics"
         ucrSelectorCorrelation.Focus()
         ucrReceiverMultipleColumns.SetDataType("numeric")
+        ucrReceiverMultipleColumns.strSelectorHeading = "Numerics"
         ucrSaveModel.chkSaveModel.Text = "Result Name"
         ucrBase.clsRsyntax.bExcludeAssignedFunctionOutput = False
+        'TODO: Fix bugs produced when rdoScatterplotMatrix is checked. Disabled for now
+        sdgCorrPlot.rdoScatterplotMatrix.Enabled = False
+
         sdgCorrPlot.ucrSelectFactor.SetDataframe(ucrSelectorCorrelation.ucrAvailableDataFrames.strCurrDataFrame, bEnableDataframe:=False)
         nudConfidenceInterval.Minimum = 0
         nudConfidenceInterval.Maximum = 1
@@ -240,7 +246,7 @@ Public Class dlgCorrelation
             ucrBase.clsRsyntax.SetAssignTo(ucrSaveModel.ucrInputModelName.GetText(), strTempModel:=ucrSaveModel.ucrInputModelName.GetText(), strTempDataframe:=ucrSelectorCorrelation.ucrAvailableDataFrames.cboAvailableDataFrames.SelectedItem)
             ucrBase.clsRsyntax.bExcludeAssignedFunctionOutput = False
             ucrBase.clsRsyntax.iCallType = 0
-        ElseIf sdgcorrplot.ucrSaveGraph.bSaveGraph Then
+        ElseIf sdgCorrPlot.ucrSaveGraph.bSaveGraph Then
             ucrBase.clsRsyntax.SetAssignTo(sdgCorrPlot.ucrSaveGraph.strGraphName, strTempDataframe:=ucrSelectorCorrelation.ucrAvailableDataFrames.cboAvailableDataFrames.Text, strTempGraph:=sdgCorrPlot.ucrSaveGraph.strGraphName)
             ucrBase.clsRsyntax.iCallType = 0
         Else
@@ -258,5 +264,12 @@ Public Class dlgCorrelation
 
     Private Sub ucrSaveModel_CheckedChanged(bChecked As Boolean) Handles ucrSaveModel.CheckedChanged
         TestOKEnabled()
+    End Sub
+
+    'Very bad temporary solution! Whole dialog needs to be fixed properly!
+    Private Sub ucrBase_BeforeClickOk(sender As Object, e As EventArgs) Handles ucrBase.BeforeClickOk
+        If sdgCorrPlot.rdoPairwisePlot.Checked OrElse sdgCorrPlot.rdoScatterplotMatrix.Checked OrElse sdgCorrPlot.rdoCorrelationPlot.Checked Then
+            ucrBase.clsRsyntax.iCallType = 3
+        End If
     End Sub
 End Class

@@ -42,7 +42,7 @@ Public Class ucrInputTextBox
                 'TODO This message should contain the same message from ValidateText()
                 'Temp disabled so that change is done automatically
                 'TODO Think about more subtle ways to do this without being annoying to the user
-                'Select Case MsgBox(Chr(34) & strCurrent & Chr(34) & " is an invalid name." & vbNewLine & "Would you like it to be automatically corrected?", vbYesNo, "Invalid Name")
+                'Select Case MsgBox(Chr(34) & strCurrent & Chr(34) & " is an invalid name." & Environment.NewLine & "Would you like it to be automatically corrected?", vbYesNo, "Invalid Name")
                 '    Case MsgBoxResult.Yes
                 '        SetName(frmMain.clsRLink.MakeValidText(strCurrent))
                 '    Case Else
@@ -83,6 +83,12 @@ Public Class ucrInputTextBox
 
     Private Sub mnuRightClickCopy_Click(sender As Object, e As EventArgs) Handles mnuRightClickCopy.Click
         txtInput.Copy()
+    End Sub
+
+    Private Sub ucrInputTextBox_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If bFirstLoad Then
+            bFirstLoad = False
+        End If
     End Sub
 
     Public Overrides Property IsReadOnly As Boolean

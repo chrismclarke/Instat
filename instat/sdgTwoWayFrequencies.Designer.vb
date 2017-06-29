@@ -22,8 +22,8 @@ Partial Class sdgTwoWayFrequencies
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.tbTwoWayFrequencies = New System.Windows.Forms.TabControl()
-        Me.tbTable = New System.Windows.Forms.TabPage()
+        Me.tbpTwoWayFrequencies = New System.Windows.Forms.TabControl()
+        Me.tbpTable = New System.Windows.Forms.TabPage()
         Me.grpTableOptions = New System.Windows.Forms.GroupBox()
         Me.lblNumberOfDecimals = New System.Windows.Forms.Label()
         Me.ucrNudDecimalPlaces = New instat.ucrNud()
@@ -34,8 +34,7 @@ Partial Class sdgTwoWayFrequencies
         Me.ucrChkMissingValues = New instat.ucrCheck()
         Me.ucrChkBackgroundColour = New instat.ucrCheck()
         Me.ucrChkShowSummary = New instat.ucrCheck()
-        Me.tbGraph = New System.Windows.Forms.TabPage()
-        Me.ucrSaveGraph = New instat.ucrSave()
+        Me.tbpGraph = New System.Windows.Forms.TabPage()
         Me.grpGraphOptions = New System.Windows.Forms.GroupBox()
         Me.ucrChkStack = New instat.ucrCheck()
         Me.lblTitle = New System.Windows.Forms.Label()
@@ -52,34 +51,34 @@ Partial Class sdgTwoWayFrequencies
         Me.rdoBar = New System.Windows.Forms.RadioButton()
         Me.ucrPnlGraphType = New instat.UcrPanel()
         Me.ucrBaseSubDialogue = New instat.ucrButtonsSubdialogue()
-        Me.tbTwoWayFrequencies.SuspendLayout()
-        Me.tbTable.SuspendLayout()
+        Me.tbpTwoWayFrequencies.SuspendLayout()
+        Me.tbpTable.SuspendLayout()
         Me.grpTableOptions.SuspendLayout()
-        Me.tbGraph.SuspendLayout()
+        Me.tbpGraph.SuspendLayout()
         Me.grpGraphOptions.SuspendLayout()
         Me.grpGraphType.SuspendLayout()
         Me.SuspendLayout()
         '
-        'tbTwoWayFrequencies
+        'tbpTwoWayFrequencies
         '
-        Me.tbTwoWayFrequencies.Controls.Add(Me.tbTable)
-        Me.tbTwoWayFrequencies.Controls.Add(Me.tbGraph)
-        Me.tbTwoWayFrequencies.Location = New System.Drawing.Point(8, 8)
-        Me.tbTwoWayFrequencies.Name = "tbTwoWayFrequencies"
-        Me.tbTwoWayFrequencies.SelectedIndex = 0
-        Me.tbTwoWayFrequencies.Size = New System.Drawing.Size(321, 315)
-        Me.tbTwoWayFrequencies.TabIndex = 0
+        Me.tbpTwoWayFrequencies.Controls.Add(Me.tbpTable)
+        Me.tbpTwoWayFrequencies.Controls.Add(Me.tbpGraph)
+        Me.tbpTwoWayFrequencies.Location = New System.Drawing.Point(8, 8)
+        Me.tbpTwoWayFrequencies.Name = "tbpTwoWayFrequencies"
+        Me.tbpTwoWayFrequencies.SelectedIndex = 0
+        Me.tbpTwoWayFrequencies.Size = New System.Drawing.Size(321, 283)
+        Me.tbpTwoWayFrequencies.TabIndex = 0
         '
-        'tbTable
+        'tbpTable
         '
-        Me.tbTable.Controls.Add(Me.grpTableOptions)
-        Me.tbTable.Location = New System.Drawing.Point(4, 22)
-        Me.tbTable.Name = "tbTable"
-        Me.tbTable.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbTable.Size = New System.Drawing.Size(313, 289)
-        Me.tbTable.TabIndex = 0
-        Me.tbTable.Text = "Table"
-        Me.tbTable.UseVisualStyleBackColor = True
+        Me.tbpTable.Controls.Add(Me.grpTableOptions)
+        Me.tbpTable.Location = New System.Drawing.Point(4, 22)
+        Me.tbpTable.Name = "tbpTable"
+        Me.tbpTable.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbpTable.Size = New System.Drawing.Size(313, 257)
+        Me.tbpTable.TabIndex = 0
+        Me.tbpTable.Text = "Table"
+        Me.tbpTable.UseVisualStyleBackColor = True
         '
         'grpTableOptions
         '
@@ -102,7 +101,7 @@ Partial Class sdgTwoWayFrequencies
         'lblNumberOfDecimals
         '
         Me.lblNumberOfDecimals.AutoSize = True
-        Me.lblNumberOfDecimals.Location = New System.Drawing.Point(10, 101)
+        Me.lblNumberOfDecimals.Location = New System.Drawing.Point(8, 101)
         Me.lblNumberOfDecimals.Name = "lblNumberOfDecimals"
         Me.lblNumberOfDecimals.Size = New System.Drawing.Size(161, 13)
         Me.lblNumberOfDecimals.TabIndex = 3
@@ -123,7 +122,7 @@ Partial Class sdgTwoWayFrequencies
         'lblGraphTitle
         '
         Me.lblGraphTitle.AutoSize = True
-        Me.lblGraphTitle.Location = New System.Drawing.Point(10, 157)
+        Me.lblGraphTitle.Location = New System.Drawing.Point(8, 157)
         Me.lblGraphTitle.Name = "lblGraphTitle"
         Me.lblGraphTitle.Size = New System.Drawing.Size(60, 13)
         Me.lblGraphTitle.TabIndex = 7
@@ -181,25 +180,17 @@ Partial Class sdgTwoWayFrequencies
         Me.ucrChkShowSummary.Size = New System.Drawing.Size(145, 20)
         Me.ucrChkShowSummary.TabIndex = 0
         '
-        'tbGraph
+        'tbpGraph
         '
-        Me.tbGraph.Controls.Add(Me.ucrSaveGraph)
-        Me.tbGraph.Controls.Add(Me.grpGraphOptions)
-        Me.tbGraph.Controls.Add(Me.grpGraphType)
-        Me.tbGraph.Location = New System.Drawing.Point(4, 22)
-        Me.tbGraph.Name = "tbGraph"
-        Me.tbGraph.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbGraph.Size = New System.Drawing.Size(313, 289)
-        Me.tbGraph.TabIndex = 1
-        Me.tbGraph.Text = "Graph"
-        Me.tbGraph.UseVisualStyleBackColor = True
-        '
-        'ucrSaveGraph
-        '
-        Me.ucrSaveGraph.Location = New System.Drawing.Point(6, 260)
-        Me.ucrSaveGraph.Name = "ucrSaveGraph"
-        Me.ucrSaveGraph.Size = New System.Drawing.Size(288, 24)
-        Me.ucrSaveGraph.TabIndex = 2
+        Me.tbpGraph.Controls.Add(Me.grpGraphOptions)
+        Me.tbpGraph.Controls.Add(Me.grpGraphType)
+        Me.tbpGraph.Location = New System.Drawing.Point(4, 22)
+        Me.tbpGraph.Name = "tbpGraph"
+        Me.tbpGraph.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbpGraph.Size = New System.Drawing.Size(313, 257)
+        Me.tbpGraph.TabIndex = 1
+        Me.tbpGraph.Text = "Graph"
+        Me.tbpGraph.UseVisualStyleBackColor = True
         '
         'grpGraphOptions
         '
@@ -352,7 +343,7 @@ Partial Class sdgTwoWayFrequencies
         '
         'ucrBaseSubDialogue
         '
-        Me.ucrBaseSubDialogue.Location = New System.Drawing.Point(98, 329)
+        Me.ucrBaseSubDialogue.Location = New System.Drawing.Point(98, 297)
         Me.ucrBaseSubDialogue.Name = "ucrBaseSubDialogue"
         Me.ucrBaseSubDialogue.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.ucrBaseSubDialogue.Size = New System.Drawing.Size(142, 30)
@@ -362,20 +353,20 @@ Partial Class sdgTwoWayFrequencies
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(339, 363)
-        Me.Controls.Add(Me.tbTwoWayFrequencies)
+        Me.ClientSize = New System.Drawing.Size(339, 328)
+        Me.Controls.Add(Me.tbpTwoWayFrequencies)
         Me.Controls.Add(Me.ucrBaseSubDialogue)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "sdgTwoWayFrequencies"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Two Way Frequencies Options"
-        Me.tbTwoWayFrequencies.ResumeLayout(False)
-        Me.tbTable.ResumeLayout(False)
+        Me.Text = "Frequency Table & Graph Options"
+        Me.tbpTwoWayFrequencies.ResumeLayout(False)
+        Me.tbpTable.ResumeLayout(False)
         Me.grpTableOptions.ResumeLayout(False)
         Me.grpTableOptions.PerformLayout()
-        Me.tbGraph.ResumeLayout(False)
+        Me.tbpGraph.ResumeLayout(False)
         Me.grpGraphOptions.ResumeLayout(False)
         Me.grpGraphOptions.PerformLayout()
         Me.grpGraphType.ResumeLayout(False)
@@ -384,16 +375,15 @@ Partial Class sdgTwoWayFrequencies
 
     End Sub
     Friend WithEvents ucrBaseSubDialogue As ucrButtonsSubdialogue
-    Friend WithEvents tbTwoWayFrequencies As TabControl
-    Friend WithEvents tbTable As TabPage
+    Friend WithEvents tbpTwoWayFrequencies As TabControl
+    Friend WithEvents tbpTable As TabPage
     Friend WithEvents grpTableOptions As GroupBox
     Friend WithEvents ucrChkTotalColumnName As ucrCheck
     Friend WithEvents ucrInputTotalsName As ucrInputTextBox
     Friend WithEvents ucrChkMissingValues As ucrCheck
     Friend WithEvents ucrChkBackgroundColour As ucrCheck
     Friend WithEvents ucrChkShowSummary As ucrCheck
-    Friend WithEvents tbGraph As TabPage
-    Friend WithEvents ucrSaveGraph As ucrSave
+    Friend WithEvents tbpGraph As TabPage
     Friend WithEvents grpGraphOptions As GroupBox
     Friend WithEvents lblTitle As Label
     Friend WithEvents lblHjust As Label

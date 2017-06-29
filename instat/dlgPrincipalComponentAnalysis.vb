@@ -32,10 +32,12 @@ Public Class dlgPrincipalComponentAnalysis
     End Sub
 
     Private Sub InitialiseDialog()
+        ucrBasePCA.clsRsyntax.SetPackageName("FactoMineR")
         ucrBasePCA.clsRsyntax.SetFunction("PCA")
         ucrBasePCA.clsRsyntax.iCallType = 0
         ucrReceiverMultiplePCA.Selector = ucrSelectorPCA
         ucrReceiverMultiplePCA.SetDataType("numeric")
+        ucrReceiverMultiplePCA.strSelectorHeading = "Numerics"
         ucrResultName.SetDefaultTypeAsModel()
         ucrResultName.SetItemsTypeAsModels()
         ucrResultName.SetValidationTypeAsRVariable()

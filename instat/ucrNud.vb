@@ -35,7 +35,7 @@ Public Class ucrNud
         OnControlValueChanged()
     End Sub
 
-    Protected Overrides Sub UpdateParameter(clsTempParam As RParameter)
+    Public Overrides Sub UpdateParameter(clsTempParam As RParameter)
         If bChangeParameterValue AndAlso clsTempParam IsNot Nothing Then
             If nudUpDown.Text <> "" Then
                 clsTempParam.SetArgumentValue(nudUpDown.Value)
@@ -44,6 +44,23 @@ Public Class ucrNud
             End If
         End If
     End Sub
+
+    Public Overrides Function IsRDefault() As Boolean
+        Dim clsParam As RParameter
+        Dim dTempParamValue As Decimal
+        Dim dTempRDefault As Decimal
+
+        clsParam = GetParameter()
+        If clsParam IsNot Nothing AndAlso clsParam.strArgumentValue IsNot Nothing AndAlso objRDefault IsNot Nothing Then
+            If Decimal.TryParse(clsParam.strArgumentValue, dTempParamValue) AndAlso Decimal.TryParse(objRDefault, dTempRDefault) Then
+                Return dTempRDefault = dTempParamValue
+            Else
+                Return False
+            End If
+        Else
+            Return False
+        End If
+    End Function
 
     Public Property Minimum As Decimal
         Get
@@ -133,10 +150,15 @@ Public Class ucrNud
     Protected Overrides Sub SetToValue(objTemp As Object)
         Dim dNewValue As Decimal
 
-        If objTemp IsNot Nothing AndAlso Decimal.TryParse(objTemp, dNewValue) AndAlso dNewValue >= nudUpDown.Minimum AndAlso dNewValue <= nudUpDown.Maximum Then
-            nudUpDown.Value = dNewValue
+        If objTemp Is Nothing Then
+            'If no value reset to a default value
+            nudUpDown.Value = nudUpDown.Minimum
         Else
-            MsgBox("Developer error: The value given cannot be converted to a decimal or is outside the range of the control. Value will be unchanged.")
+            If Decimal.TryParse(objTemp, dNewValue) AndAlso dNewValue >= nudUpDown.Minimum AndAlso dNewValue <= nudUpDown.Maximum Then
+                nudUpDown.Value = dNewValue
+            Else
+                MsgBox("Developer error: The value given cannot be converted to a decimal or is outside the range of the control. Value will be unchanged.")
+            End If
         End If
     End Sub
 End Class
